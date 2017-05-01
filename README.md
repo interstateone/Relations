@@ -15,7 +15,11 @@ Options:
     --varPredicate - Predicate for properties evaluated with a [String: SourceKitRepresentable]. You must double-escape slashes, which usually means a \ turns into a \\\\
     --output [default: graph.dot] - Relative path for Graphviz .dot file
 
-$ relations --typePredicate "key.name ENDSWITH 'Wireframe'" --varPredicate "key.typename MATCHES '.*Wireframe\\\\??$'" && open -a Graphviz graph.dot
+$ relations \
+    --typePredicate "key.name ENDSWITH 'Wireframe'" \
+    --varPredicate "key.typename MATCHES '.*Wireframe\\\\??$'" \
+    --varPredicate "key.attributes == nil OR SUBQUERY(key.attributes, \$a, \$a.key.attribute == 'source.decl.attribute.weak').@count == 0" \
+  && open -a Graphviz graph.dot
 ```
 
 ## Installation

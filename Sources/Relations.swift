@@ -60,12 +60,6 @@ command(
                     guard predicate.evaluate(with: structure) else { return }
                 }
 
-                // Don't care about weak vars
-                if let attributes = structure["key.attributes"] as? [StructureDictionary] {
-                    let attributeValues = attributes.flatMap { $0["key.attribute"] as? String }
-                    guard !attributeValues.contains("source.decl.attribute.weak") else { return }
-                }
-
                 guard let lastVertex = lastVertex else { return }
 
                 print("Found property \"\(name): \(typeName)\"")
